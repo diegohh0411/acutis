@@ -1,0 +1,22 @@
+{
+  "name": "acutis",
+  "version": "0.1.0",
+  "description": "This is a NodeJS engine that helps parishes set up their own modern and aesthetical website.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/diegohh0411/acutis.git"
+  },
+  "keywords": [
+    "catholic"
+  ],
+  "author": "Diego Hernández Herrera",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/diegohh0411/acutis/issues"
+  },
+  "homepage": "https://github.com/diegohh0411/acutis#readme"
+}
