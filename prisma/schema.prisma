@@ -18,10 +18,12 @@ model Parroquia {
 }
 
 model Sacerdote {
-  id    Int     @id @default(autoincrement())
-  name  String  @unique
-  email String  @unique
-  bio   String?
+  id                  Int     @id @default(autoincrement())
+  name                String  @unique
+  email               String  @unique
+  bio                 String?
+  loginToken          String?
+  loginTokenTimestamp String?
 }
 
 model Misa {

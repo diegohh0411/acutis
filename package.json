@@ -2,7 +2,7 @@
   "name": "acutis",
   "version": "0.1.0",
   "description": "This is a NodeJS engine that helps parishes set up their own modern and aesthetical website.",
-  "main": "index.js",
+  "main": "acutis.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -26,6 +26,8 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "@prisma/client": "^5.3.1"
+    "@fastify/basic-auth": "^5.0.0",
+    "@prisma/client": "^5.3.1",
+    "fastify": "^4.23.2"
   }
 }
