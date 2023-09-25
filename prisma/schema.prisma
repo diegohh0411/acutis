@@ -10,9 +10,62 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Parroquia {
+  id        Int     @id @default(autoincrement())
+  name      String  @unique
+  diocesis  String  @unique
+  direccion String  @unique
+}
 
-model User {
+model Sacerdote {
   id    Int     @id @default(autoincrement())
+  name  String  @unique
   email String  @unique
-  name  String?
+  bio   String?
+}
+
+model Misa {
+  id            Int     @id @default(autoincrement())
+  published     Boolean
+  day           String
+  startingHour  String
+  endingHour    String
+  note          String?
+}
+
+model HoraSanta {
+  id            Int     @id @default(autoincrement())
+  published     Boolean
+  day           String
+  startingHour  String
+  endingHour    String
+  note          String?
+}
+
+model Confesion {
+  id            Int     @id @default(autoincrement())
+  published     Boolean
+  day           String
+  startingHour  String
+  endingHour    String
+  note          String?
+}
+
+model Oficina {
+  id            Int     @id @default(autoincrement())
+  published     Boolean
+  day           String
+  startingHour  String
+  endingHour    String
+  note          String?
+}
+
+model Contacto {
+  id            Int     @id @default(autoincrement())
+  name          String
+  published     Boolean
+  email         String? @unique
+  celular       String? @unique
+  whatsapp      Boolean
+  note          String?
 }
