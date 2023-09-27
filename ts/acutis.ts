@@ -17,12 +17,12 @@ const envToLogger = {
 }
 
 const fastify : FastifyInstance = Fastify({
-    logger: envToLogger.production ?? true // defaults to true if no entry matches in the map
+    logger: envToLogger.development ?? true // defaults to true if no entry matches in the map
 })
 
 // Register routes
-import userManagement from './routes/userManagement'
-fastify.register(userManagement)
+import sacerdotes from './routes/sacerdotes'
+fastify.register(sacerdotes)
 
 // Function to start the server
 const start = async () => {

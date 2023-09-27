@@ -1,8 +1,23 @@
 import { FastifyInstance, RouteOptions, HookHandlerDoneFunction } from 'fastify'
-import { prisma } from './../dbManager'
-import { crearSacerdotesSchema } from '../schemas/userManagementSchemas'
+import { prisma } from '../dbManager'
+import { crearSacerdotesSchema, getSacerdotesSchema } from '../schemas/sacerdotesSchemas'
 
-const userManagement = async (fastify : FastifyInstance , opts : RouteOptions, done : HookHandlerDoneFunction) => {
+const sacerdotes = async (fastify : FastifyInstance , opts : RouteOptions, done : HookHandlerDoneFunction) => {
+
+    fastify.get('/sacerdotes', {schema: getSacerdotesSchema}, async (request, reply) => {
+        try {
+            const users = await prisma.sacerdote.findMany()
+            reply
+                .code(200)
+                .send(users.map(function (item) {
+                    return {name: item.name, bio: item.bio}
+                }))
+        } catch {
+            reply
+                .code(500)
+                .send({ error: 'Error Interno del Servidor', message: 'Ya estamos atendiendo el error. Gracias por tu paciencia.'})
+        }
+    })
 
     fastify.post('/primerSacerdote', {schema : crearSacerdotesSchema}, async (request, reply) => {
         try {
@@ -66,4 +81,4 @@ const userManagement = async (fastify : FastifyInstance , opts : RouteOptions, d
     done()
 }
 
-export default userManagement
+export default sacerdotes
