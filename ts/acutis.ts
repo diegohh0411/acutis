@@ -1,39 +1,43 @@
-import Fastify, { FastifyInstance, RouteShorthandOptions } from 'fastify'
-import { Server, IncomingMessage, ServerResponse } from 'http'
+import Fastify, { FastifyInstance } from 'fastify'
 
 // Setup Fastify
-const server:FastifyInstance = Fastify({})
-const opts:RouteShorthandOptions = {
-    schema: {
-        response: {
-            200: {
-                type: 'object',
-                properties: {
-                    pong: {
-                        type: 'string'
-                    }
-                }
-            }
-        }
+const envToLogger = {
+    development: {
+      transport: {
+        target: 'pino-pretty',
+        options: {
+          translateTime: 'HH:MM:ss Z',
+          ignore: 'pid,hostname',
+        },
+      },
+    },
+    production: {
+        level: 'error'
     }
 }
 
-// Declare routes
-server.get('/ping', opts, async (req, rep) => {
-    return {pong: 'worked!'}
+const fastify : FastifyInstance = Fastify({
+    logger: envToLogger.production ?? true // defaults to true if no entry matches in the map
 })
 
-// Run the server
+// Register routes
+import userManagement from './routes/userManagement'
+fastify.register(userManagement)
+
+// Function to start the server
 const start = async () => {
     try {
-        await server.listen({port:3000})
-
-        const address = server.server.address()
+        const address = fastify.server.address()
         const port = typeof address === 'string' ? address : address?.port
+
+        await fastify.listen({
+            port: 3000,
+            listenTextResolver: (address) => { return `Acutis engine is listening at ${address}` }
+        })        
     } catch (err) {
-        server.log.error(err)
+        fastify.log.error(err)
         process.exit(1)
     }
 }
 
-// start()
+start()
