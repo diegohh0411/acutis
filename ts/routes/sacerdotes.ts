@@ -2,7 +2,7 @@ import { FastifyInstance, RouteOptions, HookHandlerDoneFunction } from 'fastify'
 import { prisma } from '../dbManager'
 import { crearSacerdotesSchema, getSacerdotesSchema } from '../schemas/sacerdotesSchemas'
 
-const sacerdotes = async (fastify : FastifyInstance , opts : RouteOptions, done : HookHandlerDoneFunction) => {
+export const sacerdotes = async (fastify : FastifyInstance , opts : RouteOptions, done : HookHandlerDoneFunction) => {
 
     fastify.get('/sacerdotes', {schema: getSacerdotesSchema}, async (request, reply) => {
         try {
@@ -19,7 +19,7 @@ const sacerdotes = async (fastify : FastifyInstance , opts : RouteOptions, done 
         }
     })
 
-    fastify.post('/primerSacerdote', {schema : crearSacerdotesSchema}, async (request, reply) => {
+    fastify.post('/primerSacerdote', {schema : crearSacerdotesSchema}, async (request: any, reply) => {
         try {
             const user = await prisma.sacerdote.findFirst({orderBy: {id: 'desc'}})
             if (user) {
@@ -35,7 +35,7 @@ const sacerdotes = async (fastify : FastifyInstance , opts : RouteOptions, done 
                     }
                 })
             }
-        } catch (serverError) {
+        } catch (serverError: any) {
             if (serverError.name === "PrismaClientKnownRequestError") {
                 fastify.log.error(serverError.message)
                 reply
@@ -51,7 +51,7 @@ const sacerdotes = async (fastify : FastifyInstance , opts : RouteOptions, done 
         
     })
 
-    fastify.post('/otroSacerdote', {schema: crearSacerdotesSchema}, async (request, reply) => {
+    fastify.post('/otroSacerdote', {schema: crearSacerdotesSchema}, async (request: any, reply) => {
         try {
             const sacerdote = await prisma.sacerdote.create({
                 data: { 
@@ -63,7 +63,7 @@ const sacerdotes = async (fastify : FastifyInstance , opts : RouteOptions, done 
             reply
                 .code(201)
                 .send({message: 'Tu nuevo sacerdote se ha creado.'})
-        } catch (serverError) {
+        } catch (serverError: any) {
             if (serverError.name === "PrismaClientKnownRequestError") {
                 fastify.log.error(serverError.message)
                 reply
@@ -80,5 +80,3 @@ const sacerdotes = async (fastify : FastifyInstance , opts : RouteOptions, done 
 
     done()
 }
-
-export default sacerdotes

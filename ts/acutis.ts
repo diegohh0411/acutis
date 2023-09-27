@@ -21,7 +21,7 @@ const fastify : FastifyInstance = Fastify({
 })
 
 // Register routes
-import sacerdotes from './routes/sacerdotes'
+import { sacerdotes } from './routes/sacerdotes'
 fastify.register(sacerdotes)
 
 // Function to start the server

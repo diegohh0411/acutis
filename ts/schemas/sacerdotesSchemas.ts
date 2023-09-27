@@ -42,7 +42,7 @@ const getSacerdotes = {
     type: 'array',
     items: {
         name: {type: 'string'},
-        bio: {type: 'string' | 'null'}
+        bio: {type: 'string'}
     }
 }
 
