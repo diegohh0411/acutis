@@ -4,7 +4,7 @@
   "description": "This is a NodeJS engine that helps parishes set up their own modern and aesthetical website.",
   "main": "acutis.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node ./dist/acutis.js"
   },
   "repository": {
     "type": "git",
